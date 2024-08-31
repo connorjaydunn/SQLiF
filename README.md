@@ -69,7 +69,7 @@ TODO
 * Recursive scanning (i.e. follow links found in target's html response)
 * Improved exception handling (virtually none as of right now)
 * Improved output (both console and output file)
-* Faster DBMS error detection (current implementation is extremely slow in some cases and so detection of a few engines is disabled)
+* ~~Faster DBMS error detection (current implementation is extremely slow in some cases and so detection of a few engines is disabled)~~
 * Fix "ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host" error
 
 DISCLAIMER
