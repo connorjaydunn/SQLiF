@@ -34,7 +34,7 @@ def logo():
    |   __|     |  |  |_|   __|
    |__   |  |  |  |__| |   __|
    |_____|__  _|_____|_|__|   
-            |__|            v1.0 ~ https://github.com/connorjaydunn/SQLiF
+            |__|            v1.1 ~ https://github.com/connorjaydunn/SQLiF
 
 [*] The developer is not responsible for any illegal use, including unauthorised attacks
     on websites or databases. By using this software, you agree to use it responsibly 
