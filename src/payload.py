@@ -22,7 +22,18 @@
 
 import urllib
 
-payload_chars = ["'", '"']
+payload_chars = [
+    "'",
+    '"',
+    " ORDER BY 10000",
+    " ORDER BY 10000--",
+    " ORDER BY 10000#",
+    "#",
+    "--",
+    "-- -",
+    "/*",
+    "`",
+    ]
 
 def create_injected_urls(url, payload_char):
     """
