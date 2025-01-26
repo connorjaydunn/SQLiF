@@ -13,7 +13,7 @@ Features
 * Recursive Scanning
 * Targeted Scanning
 * Detection For Many Popular DBMS (MySQL, PostgreSQL, Microsoft SQL Server, and more)
-* Dork-Based Scanning (Google, Yahoo, Bing, and more)
+* Dork-Based Scanning
 
 Screenshots
 ----
@@ -54,10 +54,10 @@ Targeted scan with cookie and header-based injection:
 python sqlif.py -t "https://127.0.0.1/blog.php?id=23" --cookies-scan --headers-scan
 ```
 
-Google search results scan (2 pages) using 3 threads and recursive scanning.
+Google search results scan (start index 20 and 30 results total) using 3 threads and recursive scanning.
 
 ```bash
-python sqlif.py -e "google" -q "inurl:login.php" -p 2 --threads=3 --crawl
+python sqlif.py -q "inurl:login.php" -s 20 -n 30 --threads=3 --crawl
 ```
 
 DISCLAIMER
