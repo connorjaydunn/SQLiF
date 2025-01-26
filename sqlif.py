@@ -1,7 +1,7 @@
 from src.error_based_scan import ErrorBasedScan
 from src.time_based_scan import TimeBasedScan
 from src.print_handler import PrintHandler
-from src.search_handler import SearchHandler
+from src.googlesearch import search
 from src.target import Target
 import colorama
 import threading
@@ -83,13 +83,6 @@ def parse_args():
         dict: Dictionary of the parsed arguments.
     """
     parser = argparse.ArgumentParser()
-    
-    parser.add_argument(
-        "-e", "--engine",
-        type=str,
-        default="google",
-        help="The search engine to use (default: google)"
-    )
 
     parser.add_argument(
         "-q", "--query",
@@ -98,10 +91,17 @@ def parse_args():
     )
 
     parser.add_argument(
-        "-p", "--pages",
+        "-s", "--start-result",
         type=int,
-        default=5,
-        help="Number of pages to search (default: 5)"
+        default=0,
+        help="Starting index of results to scan (default: 0)"
+    )
+
+    parser.add_argument(
+        "-n", "--num-results",
+        type=int,
+        default=30,
+        help="Number of results to retrieve starting from the start index (default: 30)"
     )
 
     parser.add_argument(
@@ -184,13 +184,9 @@ if __name__ == "__main__":
     # if query specified, execute & collect targets
     if args.query:
         PrintHandler.print_message(f"Fetching URL(s)...", "INFO", "blue")
-        urls, is_blocked = SearchHandler.search(args.engine, args.query, args.pages)
-
-        # notify the user if they were blocked by the search engine
-        if is_blocked:
-            PrintHandler.print_message(f"You appear to have been blocked by the search engine!", "WARNING", "red")
+        search_results = search(query=args.query, start=args.start_result, stop=args.start_result+args.num_results)
         
-        for url in urls:
+        for url in search_results:
             targets.append(Target(url))
 
     PrintHandler.print_message(f"Scanning {len(targets)} target(s)...", "INFO", "blue")

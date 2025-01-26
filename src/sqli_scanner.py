@@ -1,7 +1,6 @@
 import urllib.parse
 import json
 import logging
-import requests
 import os
 
 class SQLiScanner:
