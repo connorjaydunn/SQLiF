@@ -306,7 +306,11 @@ def search(query, tld='com', lang='en', tbs='0', safe='off', num=10, start=0,
         time.sleep(pause)
 
         # Request the Google Search results page.
-        html = get_page(url, user_agent, verify_ssl)
+        try:
+            html = get_page(url, user_agent, verify_ssl)
+        except:
+            print("blocked")
+            return
 
         # Parse the response and get every anchored URL.
         if is_bs4:

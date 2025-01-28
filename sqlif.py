@@ -1,8 +1,9 @@
 from src.error_based_scan import ErrorBasedScan
 from src.time_based_scan import TimeBasedScan
 from src.print_handler import PrintHandler
-from src.googlesearch import search
 from src.target import Target
+from src.googlesearch import search
+from src.util import filter_duplicate_urls
 import colorama
 import threading
 import math
@@ -184,7 +185,9 @@ if __name__ == "__main__":
     # if query specified, execute & collect targets
     if args.query:
         PrintHandler.print_message(f"Fetching URL(s)...", "INFO", "blue")
-        search_results = search(query=args.query, start=args.start_result, stop=args.start_result+args.num_results)
+
+        # search for query & filter duplicate urls
+        search_results = filter_duplicate_urls(list(search(query=args.query, start=args.start_result, stop=args.start_result+args.num_results)))
         
         for url in search_results:
             targets.append(Target(url))
