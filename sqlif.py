@@ -9,6 +9,7 @@ import threading
 import math
 import os
 import argparse
+import sys
 
 def print_banner():
     print(colorama.Fore.LIGHTYELLOW_EX + r"""
@@ -192,7 +193,12 @@ if __name__ == "__main__":
         for url in search_results:
             targets.append(Target(url))
 
-    PrintHandler.print_message(f"Scanning {len(targets)} target(s)...", "INFO", "blue")
+    # check for at least one target, exit if not
+    if len(targets) == 0:
+        PrintHandler.print_message("No Targets Found. If Using -q, The Search Engine May Have Blocked You!", "WARNING", "red")
+        sys.exit()
+
+    PrintHandler.print_message(f"Scanning {len(targets)} Target(s)...", "INFO", "blue")
 
     # calculate the number of targets to handle per thread
     num_jobs_per_thread = math.ceil(len(targets) / args.threads)
