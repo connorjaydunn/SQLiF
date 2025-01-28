@@ -273,7 +273,10 @@ def search(query, tld='com', lang='en', tbs='0', safe='off', num=10, start=0,
             )
 
     # Grab the cookie from the home page.
-    get_page(url_home % vars(), user_agent, verify_ssl)
+    try:
+        get_page(url_home % vars(), user_agent, verify_ssl)
+    except:
+        return
 
     # Prepare the URL of the first request.
     if start:
@@ -306,10 +309,10 @@ def search(query, tld='com', lang='en', tbs='0', safe='off', num=10, start=0,
         time.sleep(pause)
 
         # Request the Google Search results page.
+        html = None
         try:
             html = get_page(url, user_agent, verify_ssl)
         except:
-            print("blocked")
             return
 
         # Parse the response and get every anchored URL.
