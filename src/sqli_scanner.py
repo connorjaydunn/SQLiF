@@ -1,9 +1,11 @@
 import urllib.parse
 import json
-import logging
+import threading
 import os
 
 class SQLiScanner:
+    _file_lock = threading.Lock()
+    
     def __init__(self, output_file=None):
         """
         Initialises the SQLiScanner object.
@@ -15,13 +17,6 @@ class SQLiScanner:
             self.output_file = output_file
         else:
             self.output_file = os.path.join(os.getcwd(), "sqlif_output.txt")
-            
-        logging.basicConfig(
-            filename=self.output_file,
-            level=logging.INFO,
-            format='%(message)s'
-        )
-        self.logger = logging.getLogger("SQLiScanner")
 
     def _log_injection(self, target, vuln_param, payload, inject_type, inject_method, headers=None, cookies=None):        
         """
@@ -51,8 +46,12 @@ class SQLiScanner:
             log["headers"] = headers
         if cookies:
             log["cookies"] = cookies.get_dict()
-            
-        self.logger.info(json.dumps(log, indent=4))
+
+        # log injection to output file
+        log_entry = json.dumps(log, indent=4) + "\n"
+        with SQLiScanner._file_lock:
+            with open(self.output_file, "a", encoding="utf-8") as file:
+                file.write(log_entry)
 
     def query_scan(self, target):
         raise NotImplementedError()
