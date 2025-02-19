@@ -17,7 +17,7 @@ def print_banner():
 |   __|     |  |  |_|   __|
 |__   |  |  |  |__| |   __|
 |_____|__  _|_____|_|__|   
-         |__|             """ + colorama.Style.RESET_ALL + "v2.3.0 <https://github.com/connorjaydunn/SQLiF>")
+         |__|             """ + colorama.Style.RESET_ALL + "v2.4.0 <https://github.com/connorjaydunn/SQLiF>")
 
 def print_disclaimer():
     print(colorama.Fore.LIGHTRED_EX + """
